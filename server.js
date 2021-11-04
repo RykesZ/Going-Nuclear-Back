@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+//const cors = require("cors");
+const cron = require('node-cron');
+const nodemailer = require(nodemailer);
 
 const app = express();
 
@@ -38,9 +40,45 @@ db.mongoose
     })
 
 const articleRoutes = require("./routes/article");
+const newsletterRoutes = require("./routes/newsletter")
 app.use('/api/articles', articleRoutes);
+app.use('/api/newsletter', newsletterRoutes);
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`)
 })
+
+const Article = db.article;
+const Subscriber = db.subscriber;
+let lastArticleChecked = '';
+let newArticleChecked = null;
+cron.schedule('0-59/5 * * * * *', () => {
+    Article.find({}).sort({_id:-1}).limit(1)
+    .then(data => {
+        newArticleChecked = data[0].title;
+        console.log({'dernier article ':  lastArticleChecked});
+        console.log({'nouvel article ': newArticleChecked});
+            if (newArticleChecked !== lastArticleChecked) {
+                console.log('nouvel article');
+
+                Subscriber.find()
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(err => {
+                        console.log('erreur lors de la récupération des abonnés')
+                    })
+
+
+                lastArticleChecked = newArticleChecked;
+            } else {
+                console.log('pas de nouvel article');
+            }
+        })
+        .catch(err => {
+            console.log('erreur lors de la récupération du dernier article')
+        })
+});
