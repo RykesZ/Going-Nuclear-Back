@@ -34,11 +34,11 @@ exports.subscribe = (req, res) => {
                 message: err.message || "Erreur lors de la vérification de doublon"
             })
         }) 
-      } else {
-          res.status(400).send({
-              message: "L'email envoyé n'est pas valide"
-          });
-      };    
+    } else {
+        res.status(400).send({
+            message: "L'email envoyé n'est pas valide"
+        });
+    };    
 };
 
 exports.unsubscribe = (req, res) => {

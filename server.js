@@ -41,9 +41,11 @@ db.mongoose
     })
 
 const articleRoutes = require("./routes/article");
-const newsletterRoutes = require("./routes/newsletter")
+const newsletterRoutes = require("./routes/newsletter");
+const contactRoutes = require("./routes/contact");
 app.use('/api/articles', articleRoutes);
 app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/contact', contactRoutes);
 
 
 
