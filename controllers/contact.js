@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config({ path: "./.env" });
+const emailValidation = require('../services/emailValidation');
 
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -16,9 +17,7 @@ let transporter = nodemailer.createTransport({
 
 exports.send = (req, res) => {
     console.log("received contact demand");
-    const regex =
-      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-      if ((regex.test(req.body.email)) && (req.body.object !== '') && (req.body.text !== '')) {
+      if ((emailValidation(req.body.email)) && (req.body.object !== '') && (req.body.text !== '')) {
           try {
               transporter.sendMail(
                   {

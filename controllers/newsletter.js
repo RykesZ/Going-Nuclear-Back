@@ -1,11 +1,10 @@
 const db = require("../models");
 const Subscriber = db.subscriber;
+const emailValidation = require('../services/emailValidation');
 
 exports.subscribe = (req, res) => {
     console.log("received subscribe demand");
-    const regex =
-      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-      if (regex.test(req.body.email) === true) {
+      if (emailValidation(req.body.email) === true) {
         Subscriber.findOne({ email: req.body.email })
         .then((user) => {
             if (user) {
@@ -44,9 +43,7 @@ exports.subscribe = (req, res) => {
 exports.unsubscribe = (req, res) => {
     console.log("received unsubscribe demand");
     console.log(req.body.email);
-    const regex =
-      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-      if (regex.test(req.body.email) === true) {
+      if (emailValidation(req.body.email) === true) {
         Subscriber.deleteOne({ email: req.body.email})
         .then(() => {
             console.log("user unsubscribed");
