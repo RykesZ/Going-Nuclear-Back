@@ -21,7 +21,11 @@ exports.create = (req, res) => {
         title: req.body.title,
         tags: req.body.tags,
         text: req.body.text,
-        infographie: req.body.info
+        infographie: req.body.info,
+        chartData: req.body.chartData,
+        verticalUnit: req.body.verticalUnit,
+        horizontalUnit: req.body.horizontalUnit,
+        tickLabels: req.body.tickLabels
     });
 
     article
