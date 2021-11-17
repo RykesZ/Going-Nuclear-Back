@@ -7,7 +7,8 @@ module.exports = mongoose => {
         chartData: { type: Array, required: true },
         verticalUnit: { type: String, required: true },
         horizontalUnit: { type: Array, required: false},
-        tickLabels: { type: Array, required: true }
+        tickLabels: { type: Array, required: true },
+        sources: { type: Array, required: true }
     },
     { timestamps: true }
     );
