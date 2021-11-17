@@ -28,9 +28,9 @@ const newsletterService = (article, subscriber) => {
                                 let object = 'Newsletter Going Nuclear';
                                 let text = "Un nouvel article est disponible !";
                                 let html = `<h1>Un nouvel article est en ligne : ${newArticleChecked} !</h1>
-                                <a href="http://localhost:3000">Cliquez ici pour le consulter.</a>
+                                <a href="${process.env.FRONT_END_URL}">Cliquez ici pour le consulter.</a>
                                 <p>Vous ne voulez plus recevoir d'e-mail de Going Nuclear ?</p>
-                                <a href="http://localhost:3000/unsubscribe/${email}">Cliquer ici pour vous désabonner.</a>`;
+                                <a href="${process.env.FRONT_END_URL}/unsubscribe/${email}">Cliquer ici pour vous désabonner.</a>`;
                                 emailSender(from, email, object, text, html);
                             });
                         })
