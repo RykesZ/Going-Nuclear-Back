@@ -25,7 +25,9 @@ exports.create = (req, res) => {
         chartData: req.body.chartData,
         verticalUnit: req.body.verticalUnit,
         horizontalUnit: req.body.horizontalUnit,
-        tickLabels: req.body.tickLabels
+        tickLabels: req.body.tickLabels,
+        sources: req.body.sources,
+        newsletterAdvertised: req.body.newsletterAdvertised
     });
 
     article
@@ -40,6 +42,24 @@ exports.create = (req, res) => {
             });
         });
 };
+
+exports.setAdvertised = (id) => {
+    Article.findOne({ _id: id})
+    .then(article => {
+        let articleAdvertised = article;
+        articleAdvertised.newsletterAdvertised = true;
+        Article.updateOne({ _id: id }, articleAdvertised)
+        .then(() => {
+            console.log('last article set as advertised');
+        })
+        .catch((error) => {
+            console.log({ 'some error prevented the function to set the last article as advertised' : error });
+        });
+    })
+    .catch((error) => {
+        console.log({ 'some error prevented the function to find the righ article' : error });
+    });
+}
 
 exports.getLastArticle = (req, res) => {
     Article.find({}).sort({_id:-1}).limit(1)

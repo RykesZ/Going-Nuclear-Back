@@ -8,7 +8,8 @@ module.exports = mongoose => {
         verticalUnit: { type: String, required: true },
         horizontalUnit: { type: Array, required: false},
         tickLabels: { type: Array, required: true },
-        sources: { type: Array, required: true }
+        sources: { type: Array, required: true },
+        newsletterAdvertised: { type: Boolean, required: true }
     },
     { timestamps: true }
     );

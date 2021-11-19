@@ -24,6 +24,7 @@ let transporter = nodemailer.createTransport({
             html: html
         }, function(error, info) {
         if (error) {
+            console.log(error);
             throw error;
         } else {
             console.log('Email envoyé')
